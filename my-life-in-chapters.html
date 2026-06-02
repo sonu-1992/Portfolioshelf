@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>My Life in Chapters</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{min-height:100vh;font-family:'Poppins',sans-serif;padding:0 0 80px;display:flex;flex-direction:column;align-items:center;background-color:#150c04;background-image:repeating-linear-gradient(92deg,transparent 0,transparent 40px,rgba(255,185,80,0.016) 40px,rgba(255,185,80,0.016) 42px),repeating-linear-gradient(178deg,transparent 0,transparent 55px,rgba(0,0,0,0.055) 55px,rgba(0,0,0,0.055) 57px),linear-gradient(170deg,#2a1608 0%,#180c04 40%,#120804 100%);}
+
+.lights-wrap{width:100%;max-width:900px;height:62px;margin-bottom:-6px;}
+.lights-wrap svg{width:100%;height:62px;}
+
+.header{text-align:center;margin:14px 0 28px;}
+.header h1{font-family:'Poppins',sans-serif;font-style:italic;font-weight:600;font-size:clamp(26px,3.8vw,46px);color:#f5e8c8;letter-spacing:-0.5px;text-shadow:0 2px 28px rgba(210,140,60,0.45);}
+.header p{font-family:'Poppins',sans-serif;font-weight:300;font-size:15px;color:rgba(245,220,170,0.55);margin-top:5px;letter-spacing:0.5px;}
+
+.shelf-unit{width:auto;display:inline-flex;flex-direction:column;position:relative;}
+.pillar{position:absolute;top:0;bottom:0;width:24px;z-index:10;background:repeating-linear-gradient(0deg,transparent,transparent 12px,rgba(0,0,0,0.09) 12px,rgba(0,0,0,0.09) 14px),linear-gradient(90deg,#1c0902,#482008,#643018,#482008,#281006,#160700);box-shadow:inset 3px 0 4px rgba(255,175,70,0.05),inset -3px 0 6px rgba(0,0,0,0.55),2px 0 8px rgba(0,0,0,0.5);}
+.pillar-left{left:-24px;border-radius:4px 0 0 4px;}.pillar-right{right:-24px;border-radius:0 4px 4px 0;}
+
+.shelf-section{padding:15px 18px 0;position:relative;background-color:#f4e8ca;background-image:repeating-linear-gradient(0deg,transparent,transparent 22px,rgba(160,120,60,0.09) 22px,rgba(160,120,60,0.09) 23px),repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(160,120,60,0.025) 60px,rgba(160,120,60,0.025) 61px);border-top:1px solid rgba(170,120,55,0.18);}
+.shelf-section::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(255,248,215,0.28) 0%,transparent 30%,rgba(0,0,0,0.04) 100%);}
+.shelf-label{font-family:'Poppins',sans-serif;font-weight:500;font-size:13px;color:#5c3317;margin-bottom:10px;display:flex;align-items:center;gap:8px;position:relative;z-index:1;white-space:nowrap;letter-spacing:0.3px;}
+.shelf-label::after{content:'';flex:1;height:1px;background:rgba(92,51,23,0.18);}
+
+.books-row{display:flex;gap:5px;align-items:flex-end;padding-bottom:16px;position:relative;z-index:1;flex-wrap:nowrap;}
+
+.plank{margin:0 -18px;height:22px;position:relative;background:linear-gradient(180deg,#d09048 0%,#ae6e1c 22%,#986010 52%,#783c08 80%,#5c2e12 100%);box-shadow:0 6px 22px rgba(8,3,0,0.72),inset 0 1px 0 rgba(255,215,130,0.32),inset 0 -1px 0 rgba(0,0,0,0.22);}
+.plank::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(180deg,rgba(255,220,130,0.22),transparent);}
+.plank::after{content:'';position:absolute;bottom:-13px;left:18px;right:18px;height:15px;background:rgba(6,2,0,0.48);filter:blur(7px);border-radius:50%;}
+
+.book{position:relative;cursor:pointer;flex-shrink:0;filter:drop-shadow(2px 5px 8px rgba(0,0,0,0.48));transition:transform 0.28s cubic-bezier(0.34,1.56,0.64,1),filter 0.28s;}
+.book:hover{transform:translateY(-18px) rotate(-1.5deg);filter:drop-shadow(5px 12px 20px rgba(0,0,0,0.58));z-index:20;}
+.book-spine{width:44px;height:158px;border-radius:2px 5px 5px 2px;display:flex;align-items:center;justify-content:center;position:relative;box-shadow:inset -5px 0 10px rgba(0,0,0,0.3),inset 3px 0 5px rgba(255,255,255,0.1);}
+.book-spine::after{content:'';position:absolute;inset:0;border-radius:2px 5px 5px 2px;background:repeating-linear-gradient(135deg,transparent,transparent 2px,rgba(0,0,0,0.04) 2px,rgba(0,0,0,0.04) 3px);pointer-events:none;}
+.book-spine::before{content:'';position:absolute;top:0;left:0;width:8px;height:100%;background:linear-gradient(90deg,rgba(0,0,0,0.3),rgba(0,0,0,0.05),transparent);border-radius:2px 0 0 2px;}
+.spine-text{writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);font-family:'Poppins',sans-serif;font-weight:500;font-style:italic;font-size:9.5px;color:rgba(255,255,255,0.93);text-align:center;padding:6px 0;line-height:1.3;text-shadow:0 1px 4px rgba(0,0,0,0.7);max-height:138px;overflow:hidden;position:relative;z-index:1;}
+.book-pages{position:absolute;top:4px;right:-9px;width:10px;height:calc(100% - 8px);background:repeating-linear-gradient(0deg,#f8f0dc,#f8f0dc 1px,#eedad8 1px,#eedad8 2px,#f3ebd4 2px,#f3ebd4 3px,#e8d8b8 3px,#e8d8b8 4px);border-radius:0 2px 2px 0;box-shadow:2px 0 5px rgba(0,0,0,0.14),inset -1px 0 2px rgba(0,0,0,0.07);}
+.book-top{position:absolute;top:-5px;left:3px;right:-3px;height:5px;background:linear-gradient(90deg,rgba(255,255,255,0.2),rgba(255,255,255,0.07));transform:skewX(42deg);border-radius:1px 2px 0 0;}
+.book-bottom{position:absolute;bottom:-4px;left:3px;right:-3px;height:4px;background:rgba(0,0,0,0.24);transform:skewX(-42deg);}
+
+/* ── BOOK MODAL ── */
+.modal-bg{position:fixed;inset:0;background:rgba(4,8,4,0.85);backdrop-filter:blur(14px);display:none;align-items:center;justify-content:center;z-index:300;padding:14px;}
+.modal-bg.show{display:flex;}
+@keyframes popIn{from{opacity:0;transform:scale(0.82) rotate(-2.5deg);}to{opacity:1;transform:scale(1) rotate(0);}}
+
+.open-book{width:min(800px,96vw);display:grid;grid-template-columns:1fr 1fr;border-radius:4px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,0.78);animation:popIn 0.42s cubic-bezier(0.34,1.56,0.64,1);}
+.page-l,.page-r{padding:34px 24px 42px 32px;position:relative;background-color:#f9f0d8;background-image:repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(160,120,60,0.1) 27px,rgba(160,120,60,0.1) 28px);overflow:auto;max-height:82vh;}
+.page-l{border-right:1px solid rgba(160,120,60,0.13);padding:34px 20px 42px 30px;}
+.page-l::before{content:'';position:absolute;top:0;left:52px;width:1px;height:100%;background:rgba(210,130,90,0.1);pointer-events:none;}
+.page-l::after{content:'';position:absolute;top:0;right:0;width:18px;height:100%;background:linear-gradient(90deg,transparent,rgba(0,0,0,0.05));pointer-events:none;}
+.page-r{background-color:#f5edd0;padding:34px 30px 42px 20px;}
+.page-r::before{content:'';position:absolute;top:0;left:0;width:18px;height:100%;background:linear-gradient(90deg,rgba(0,0,0,0.05),transparent);pointer-events:none;}
+.crease{position:absolute;top:0;left:50%;transform:translateX(-50%);width:12px;height:100%;background:linear-gradient(90deg,rgba(0,0,0,0.09),rgba(0,0,0,0.02),rgba(255,255,255,0.04),rgba(0,0,0,0.02),rgba(0,0,0,0.09));z-index:2;pointer-events:none;}
+
+.pg-cat{font-family:'Poppins',sans-serif;font-size:9px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:rgba(100,60,20,0.48);margin-bottom:10px;}
+.pg-title{font-family:'Poppins',sans-serif;font-weight:600;font-size:18px;color:#2a1208;line-height:1.3;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(160,100,40,0.14);}
+.pg-poem{font-size:14px;color:#2e1a08;line-height:2.05;white-space:pre-wrap;word-break:break-word;}
+.pg-poem.devanagari{font-family:'Tiro Devanagari Hindi',serif;font-size:14px;}
+.pg-poem.roman{font-family:'Poppins',sans-serif;font-weight:300;font-size:13.5px;}
+.pg-num{position:absolute;bottom:14px;font-family:'Poppins',sans-serif;font-size:9px;font-weight:300;color:rgba(100,60,20,0.28);}
+.pg-num.l{left:30px;}.pg-num.r{right:28px;}
+
+.desc-label{font-family:'Poppins',sans-serif;font-size:9px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:rgba(100,60,20,0.42);margin-bottom:10px;}
+.desc-title{font-family:'Poppins',sans-serif;font-weight:600;font-size:17px;color:#2a1208;margin-bottom:8px;}
+.desc-lang{display:inline-block;font-family:'Poppins',sans-serif;font-size:8.5px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(100,60,20,0.55);background:rgba(160,100,40,0.1);padding:3px 9px;border-radius:10px;margin-bottom:14px;}
+.desc-text{font-family:'Poppins',sans-serif;font-weight:300;font-size:13px;color:#3a1e08;line-height:1.82;margin-bottom:16px;}
+.desc-author{font-family:'Poppins',sans-serif;font-style:italic;font-weight:400;font-size:12px;color:rgba(100,60,20,0.48);border-top:1px solid rgba(160,100,40,0.12);padding-top:10px;}
+.pg-illus{font-size:50px;opacity:0.13;position:absolute;bottom:38px;right:26px;}
+
+/* ── MUSIC MODAL ── */
+.music-bg{position:fixed;inset:0;background:rgba(4,2,0,0.9);backdrop-filter:blur(18px);display:none;align-items:center;justify-content:center;z-index:300;padding:20px;}
+.music-bg.show{display:flex;}
+
+.music-modal{background:linear-gradient(155deg,#edbaaa 0%,#e0a898 42%,#ce9888 100%);border-radius:20px;width:min(400px,94vw);box-shadow:0 50px 100px rgba(0,0,0,0.75),inset 0 1px 0 rgba(255,255,255,0.42),inset 0 -2px 0 rgba(0,0,0,0.1);animation:popIn 0.38s cubic-bezier(0.34,1.56,0.64,1);position:relative;overflow:hidden;}
+.music-modal::before{content:'';position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(90deg,transparent,transparent 9px,rgba(255,255,255,0.03) 9px,rgba(255,255,255,0.03) 10px);}
+
+/* disc + info */
+.mm-top{padding:18px 18px 14px;display:flex;align-items:center;gap:14px;border-bottom:1px solid rgba(58,24,8,0.12);position:relative;z-index:1;}
+.mm-disc{width:68px;height:68px;border-radius:50%;flex-shrink:0;box-shadow:0 4px 16px rgba(0,0,0,0.4);position:relative;}
+.mm-disc.spin{animation:dspin 2s linear infinite;}
+@keyframes dspin{to{transform:rotate(360deg);}}
+.mm-disc::before{content:'';position:absolute;inset:0;border-radius:50%;background:repeating-radial-gradient(circle,transparent,transparent 5px,rgba(255,255,255,0.05) 5px,rgba(255,255,255,0.05) 6px);}
+.mm-disc::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:15px;height:15px;border-radius:50%;background:radial-gradient(circle,#deaaa0 35%,#c08878);box-shadow:0 0 0 2px rgba(255,255,255,0.25);z-index:2;}
+.mm-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1;font-size:11px;}
+.mm-info{flex:1;}
+.mm-song{font-family:'Poppins',sans-serif;font-weight:600;font-style:italic;font-size:15px;color:#3a1808;margin-bottom:2px;}
+.mm-artist{font-family:'Poppins',sans-serif;font-size:11px;color:rgba(58,24,8,0.52);margin-bottom:6px;}
+
+/* knobs */
+.mm-knobs{padding:10px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(58,24,8,0.1);position:relative;z-index:1;}
+.knob{width:22px;height:22px;border-radius:50%;flex-shrink:0;position:relative;background:radial-gradient(circle at 34% 34%,#b87060,#703020);box-shadow:0 3px 7px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.28);}
+.knob::after{content:'';position:absolute;top:3px;left:50%;transform:translateX(-50%);width:2px;height:6px;background:rgba(255,255,255,0.42);border-radius:1px;}
+.knob-wrap{display:flex;flex-direction:column;align-items:center;gap:3px;}
+.knob-lbl{font-family:'Poppins',sans-serif;font-size:7px;font-weight:500;color:rgba(58,24,8,0.4);text-transform:uppercase;letter-spacing:1px;}
+.mm-brand{margin-left:auto;font-family:'Poppins',sans-serif;font-size:8px;font-weight:600;letter-spacing:2px;color:rgba(58,24,8,0.28);}
+
+/* grille */
+.mm-grille{padding:7px 18px 5px;display:flex;flex-wrap:wrap;gap:3px;position:relative;z-index:1;border-bottom:1px solid rgba(58,24,8,0.08);}
+.gd{width:4px;height:4px;border-radius:50%;background:rgba(58,24,8,0.16);flex-shrink:0;}
+
+/* PLAYER CONTROLS */
+.mm-player{padding:14px 18px 18px;position:relative;z-index:1;}
+
+/* waveform */
+.waveform{display:flex;align-items:center;justify-content:center;gap:3px;height:34px;margin-bottom:12px;}
+.waveform .bar{width:3px;border-radius:2px;background:rgba(58,24,8,0.2);flex-shrink:0;transform-origin:bottom;}
+.waveform.playing .bar{background:rgba(58,24,8,0.5);animation:wv var(--d,0.7s) ease-in-out infinite alternate;}
+@keyframes wv{from{transform:scaleY(0.3);}to{transform:scaleY(1);}}
+
+/* progress */
+.prog-bar{width:100%;height:4px;background:rgba(58,24,8,0.14);border-radius:2px;cursor:pointer;margin-bottom:6px;position:relative;}
+.prog-fill{height:100%;background:linear-gradient(90deg,#8a4030,#c07060);border-radius:2px;width:0%;transition:width 0.1s;}
+.prog-times{display:flex;justify-content:space-between;font-family:'Poppins',sans-serif;font-size:9px;font-weight:400;color:rgba(58,24,8,0.4);margin-bottom:12px;}
+
+/* controls */
+.ctrl-row{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:12px;}
+.ctrl-btn{background:none;border:none;cursor:pointer;color:rgba(58,24,8,0.55);font-size:18px;padding:6px;transition:all 0.18s;line-height:1;}
+.ctrl-btn:hover{color:#3a1808;transform:scale(1.15);}
+.play-btn{width:50px;height:50px;background:linear-gradient(150deg,#3a1808,#6a3020);border-radius:50%;color:#edbaaa;font-size:19px;box-shadow:0 4px 14px rgba(0,0,0,0.32),inset 0 1px 0 rgba(255,255,255,0.14);display:flex;align-items:center;justify-content:center;}
+.play-btn:hover{transform:scale(1.08)!important;}
+
+/* volume */
+.vol-row{display:flex;align-items:center;gap:8px;}
+.vol-icon{font-size:12px;color:rgba(58,24,8,0.4);}
+input[type=range].vol{flex:1;-webkit-appearance:none;height:3px;border-radius:2px;background:rgba(58,24,8,0.15);outline:none;cursor:pointer;}
+input[type=range].vol::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:#9a5040;cursor:pointer;}
+
+/* error state */
+.mm-error{font-family:'Poppins',sans-serif;font-size:11px;font-weight:400;color:rgba(58,24,8,0.6);text-align:center;padding:8px 0;display:none;}
+
+.close-btn{position:absolute;top:-44px;right:0;background:rgba(255,255,255,0.92);border:none;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:15px;color:#2a1a0a;box-shadow:0 4px 12px rgba(0,0,0,0.25);display:flex;align-items:center;justify-content:center;transition:all 0.18s;}
+.close-btn:hover{background:#2a1a0a;color:white;}
+
+@media(max-width:600px){.open-book{grid-template-columns:1fr;}.page-r,.crease{display:none;}.page-l{max-height:78vh;}}
+</style>
+</head>
+<body>
+
+<!-- FAIRY LIGHTS -->
+<div class="lights-wrap">
+<svg viewBox="0 0 900 62" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+  <defs>
+    <radialGradient id="gW"><stop offset="0%" stop-color="#fffde4"/><stop offset="100%" stop-color="#fffde4" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gP"><stop offset="0%" stop-color="#ffd0ee"/><stop offset="100%" stop-color="#ffd0ee" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gY"><stop offset="0%" stop-color="#fff4a0"/><stop offset="100%" stop-color="#fff4a0" stop-opacity="0"/></radialGradient>
+  </defs>
+  <path d="M0,11 Q100,29 200,15 Q320,3 440,19 Q560,29 680,13 Q790,2 860,19 Q882,23 900,15" fill="none" stroke="rgba(185,145,75,0.38)" stroke-width="1.5"/>
+  <ellipse cx="50" cy="19" rx="17" ry="17" fill="url(#gW)" opacity="0.9"/><ellipse cx="50" cy="24" rx="5.5" ry="7" fill="#fffce0"/><rect x="48" y="12" width="4" height="5" rx="1" fill="#b08840"/>
+  <ellipse cx="165" cy="15" rx="17" ry="17" fill="url(#gP)" opacity="0.88"/><ellipse cx="165" cy="20" rx="5.5" ry="7" fill="#ffd8f0"/><rect x="163" y="8" width="4" height="5" rx="1" fill="#b08840"/>
+  <ellipse cx="285" cy="22" rx="17" ry="17" fill="url(#gY)" opacity="0.88"/><ellipse cx="285" cy="27" rx="5.5" ry="7" fill="#fff4a8"/><rect x="283" y="15" width="4" height="5" rx="1" fill="#b08840"/>
+  <ellipse cx="400" cy="14" rx="17" ry="17" fill="url(#gW)" opacity="0.9"/><ellipse cx="400" cy="19" rx="5.5" ry="7" fill="#fffce0"/><rect x="398" y="7" width="4" height="5" rx="1" fill="#b08840"/>
+  <ellipse cx="515" cy="22" rx="17" ry="17" fill="url(#gP)" opacity="0.88"/><ellipse cx="515" cy="27" rx="5.5" ry="7" fill="#ffd8f0"/><rect x="513" y="15" width="4" height="5" rx="1" fill="#b08840"/>
+  <ellipse cx="630" cy="13" rx="17" ry="17" fill="url(#gY)" opacity="0.88"/><ellipse cx="630" cy="18" rx="5.5" ry="7" fill="#fff4a8"/><rect x="628" y="6" width="4" height="5" rx="1" fill="#b08840"/>
+  <ellipse cx="745" cy="20" rx="17" ry="17" fill="url(#gW)" opacity="0.9"/><ellipse cx="745" cy="25" rx="5.5" ry="7" fill="#fffce0"/><rect x="743" y="13" width="4" height="5" rx="1" fill="#b08840"/>
+  <ellipse cx="855" cy="19" rx="17" ry="17" fill="url(#gP)" opacity="0.88"/><ellipse cx="855" cy="24" rx="5.5" ry="7" fill="#ffd8f0"/><rect x="853" y="12" width="4" height="5" rx="1" fill="#b08840"/>
+</svg>
+</div>
+
+<div class="header">
+  <h1>My life, in chapters.</h1>
+  <p>Everything I am — shelved. ✦</p>
+</div>
+
+<div class="shelf-unit">
+  <div class="pillar pillar-left"></div>
+  <div class="pillar pillar-right"></div>
+
+  <!-- SHELF 1: POEMS -->
+  <div class="shelf-section">
+    <div class="shelf-label">📖 She also writes — poems</div>
+    <div class="books-row">
+      <div class="book" onclick="openPoem('p1')"><div class="book-spine" style="background:linear-gradient(158deg,#c8627a,#8a3a4a);"><div class="book-top"></div><div class="book-pages"></div><div class="book-bottom"></div><div class="spine-text">एक शाम ऐसी</div></div></div>
+      <div class="book" onclick="openPoem('p2')"><div class="book-spine" style="background:linear-gradient(158deg,#5b9ec9,#2a5a82);height:140px;"><div class="book-top"></div><div class="book-pages"></div><div class="book-bottom"></div><div class="spine-text">कोई आया है</div></div></div>
+      <div class="book" onclick="openPoem('p3')"><div class="book-spine" style="background:linear-gradient(158deg,#c8a050,#8a6820);height:170px;"><div class="book-top"></div><div class="book-pages"></div><div class="book-bottom"></div><div class="spine-text">હું બની દીવાની</div></div></div>
+      <div class="book" onclick="openPoem('p4')"><div class="book-spine" style="background:linear-gradient(158deg,#7a9a5a,#3a5a2a);height:148px;"><div class="book-top"></div><div class="book-pages"></div><div class="book-bottom"></div><div class="spine-text">संभाल लेना</div></div></div>
+      <div class="book" onclick="openPoem('p5')"><div class="book-spine" style="background:linear-gradient(158deg,#9a7ac8,#5a3a8a);height:163px;"><div class="book-top"></div><div class="book-pages"></div><div class="book-bottom"></div><div class="spine-text">तेरे निर्माण का</div></div></div>
+      <div class="book" onclick="openPoem('p6')"><div class="book-spine" style="background:linear-gradient(158deg,#d4856a,#9a4a30);height:150px;width:40px;"><div class="book-top"></div><div class="book-pages"></div><div class="book-bottom"></div><div class="spine-text">રૂપસુંદરી</div></div></div>
+      <div class="book" onclick="openPoem('p7')"><div class="book-spine" style="background:linear-gradient(158deg,#8abacc,#3a7a92);height:165px;width:38px;"><div class="book-top"></div><div class="book-pages"></div><div class="book-bottom"></div><div class="spine-text">अच्छा लगता है</div></div></div>
+      <div class="book" onclick="openPoem('p8')"><div class="book-spine" style="background:linear-gradient(158deg,#c87aaa,#7a3a6a);height:144px;width:42px;"><div class="book-top"></div><div class="book-pages"></div><div class="book-bottom"></div><div class="spine-text">तुम्हारी याद</div></div></div>
+    </div>
+    <div class="plank"></div>
+  </div>
+
+  <!-- SHELF 2: MUSIC -->
+  <div class="shelf-section" style="margin-top:24px;">
+    <div class="shelf-label">🎵 What plays on repeat — music</div>
+    <div class="books-row">
+      <div class="book" onclick="openMusic(0)"><div class="book-spine" style="background:linear-gradient(158deg,#3a2050,#180830);height:162px;"><div class="book-top"></div><div class="book-pages"></div><div class="book-bottom"></div><div class="spine-text">♪ Shape of You</div></div></div>
+      <div class="book" onclick="openMusic(1)"><div class="book-spine" style="background:linear-gradient(158deg,#1a3a5c,#0a1828);height:148px;"><div class="book-top"></div><div class="book-pages"></div><div class="book-bottom"></div><div class="spine-text">♪ Perfect</div></div></div>
+      <div class="book" onclick="openMusic(2)"><div class="book-spine" style="background:linear-gradient(158deg,#6a1a1a,#380808);height:168px;"><div class="book-top"></div><div class="book-pages"></div><div class="book-bottom"></div><div class="spine-text">♪ तुम ही हो</div></div></div>
+      <div class="book" onclick="openMusic(3)"><div class="book-spine" style="background:linear-gradient(158deg,#8a5020,#4a2808);height:154px;"><div class="book-top"></div><div class="book-pages"></div><div class="book-bottom"></div><div class="spine-text">♪ Kesariya</div></div></div>
+      <div class="book" onclick="openMusic(4)"><div class="book-spine" style="background:linear-gradient(158deg,#2a5a38,#0a2018);height:168px;width:40px;"><div class="book-top"></div><div class="book-pages"></div><div class="book-bottom"></div><div class="spine-text">♪ Raataan Lambiyan</div></div></div>
+      <div class="book" onclick="openMusic(5)"><div class="book-spine" style="background:linear-gradient(158deg,#4a2a6a,#1e0838);height:150px;width:38px;"><div class="book-top"></div><div class="book-pages"></div><div class="book-bottom"></div><div class="spine-text">♪ Tera Ban Jaunga</div></div></div>
+      <div class="book" onclick="openMusic(6)"><div class="book-spine" style="background:linear-gradient(158deg,#285840,#0c2818);height:162px;width:36px;"><div class="book-top"></div><div class="book-pages"></div><div class="book-bottom"></div><div class="spine-text">♪ Tum Hi Ho</div></div></div>
+    </div>
+    <div class="plank"></div>
+  </div>
+
+  <!-- SHELF 3: DESIGN BOOKS -->
+  <div class="shelf-section" style="margin-top:24px;">
+    <div class="shelf-label">🎨 What shaped my design — books</div>
+    <div class="books-row">
+      <div class="book" onclick="openPoem('d1')"><div class="book-spine" style="background:linear-gradient(158deg,#c0392b,#7b241c);height:168px;"><div class="book-top"></div><div class="book-pages"></div><div class="book-bottom"></div><div class="spine-text">The Design of Everyday Things</div></div></div>
+      <div class="book" onclick="openPoem('d2')"><div class="book-spine" style="background:linear-gradient(158deg,#2980b9,#1a5276);height:150px;"><div class="book-top"></div><div class="book-pages"></div><div class="book-bottom"></div><div class="spine-text">UX for Beginners</div></div></div>
+      <div class="book" onclick="openPoem('d3')"><div class="book-spine" style="background:linear-gradient(158deg,#27ae60,#1a6b3c);height:172px;"><div class="book-top"></div><div class="book-pages"></div><div class="book-bottom"></div><div class="spine-text">Designing Products People Love</div></div></div>
+      <div class="book" onclick="openPoem('d4')"><div class="book-spine" style="background:linear-gradient(158deg,#e67e22,#9a5011);height:146px;"><div class="book-top"></div><div class="book-pages"></div><div class="book-bottom"></div><div class="spine-text">Don't Make Me Think</div></div></div>
+      <div class="book" onclick="openPoem('d5')"><div class="book-spine" style="background:linear-gradient(158deg,#8e44ad,#5b2c6f);height:164px;"><div class="book-top"></div><div class="book-pages"></div><div class="book-bottom"></div><div class="spine-text">Change by Design</div></div></div>
+      <div class="book" onclick="openPoem('d6')"><div class="book-spine" style="background:linear-gradient(158deg,#2c3e50,#1a252f);height:156px;width:40px;"><div class="book-top"></div><div class="book-pages"></div><div class="book-bottom"></div><div class="spine-text">Evil by Design</div></div></div>
+      <div class="book" onclick="openPoem('d7')"><div class="book-spine" style="background:linear-gradient(158deg,#16a085,#0e6655);height:168px;width:38px;"><div class="book-top"></div><div class="book-pages"></div><div class="book-bottom"></div><div class="spine-text">UX Research</div></div></div>
+      <div class="book" onclick="openPoem('d8')"><div class="book-spine" style="background:linear-gradient(158deg,#f39c12,#9a6108);height:152px;width:36px;"><div class="book-top"></div><div class="book-pages"></div><div class="book-bottom"></div><div class="spine-text">The Mom Test</div></div></div>
+    </div>
+    <div class="plank"></div>
+  </div>
+</div>
+
+<!-- BOOK/POEM MODAL -->
+<div class="modal-bg" id="bookModal" onclick="if(event.target===this)closeAll()">
+  <div style="position:relative;">
+    <button class="close-btn" onclick="closeAll()">✕</button>
+    <div class="open-book">
+      <div class="crease"></div>
+      <div class="page-l">
+        <div class="pg-cat" id="pgCat"></div>
+        <div class="pg-title" id="pgTitle"></div>
+        <div class="pg-poem" id="pgPoem"></div>
+        <div class="pg-num l">i</div>
+      </div>
+      <div class="page-r" style="display:flex;flex-direction:column;">
+        <div class="desc-label">About this</div>
+        <div class="desc-title" id="descTitle"></div>
+        <div class="desc-lang" id="descLang"></div>
+        <div class="desc-text" id="descText"></div>
+        <div class="desc-author" id="descAuthor"></div>
+        <div class="pg-illus" id="pgIllus"></div>
+        <div class="pg-num r">ii</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MUSIC MODAL -->
+<div class="music-bg" id="musicModal" onclick="if(event.target===this)closeAll()">
+  <div style="position:relative;width:min(400px,94vw);">
+    <button class="close-btn" onclick="closeAll()">✕</button>
+    <div class="music-modal">
+      <div class="mm-top">
+        <div class="mm-disc" id="mmDisc"><div class="mm-center" id="mmCenter"></div></div>
+        <div class="mm-info">
+          <div class="mm-song" id="mmSong"></div>
+          <div class="mm-artist" id="mmArtist"></div>
+        </div>
+      </div>
+      <div class="mm-knobs">
+        <div class="knob-wrap"><div class="knob" style="transform:rotate(-25deg)"></div><div class="knob-lbl">Vol</div></div>
+        <div class="knob-wrap"><div class="knob" style="transform:rotate(15deg);width:18px;height:18px;"></div><div class="knob-lbl">Bass</div></div>
+        <div class="knob-wrap"><div class="knob" style="transform:rotate(-10deg);width:16px;height:16px;"></div><div class="knob-lbl">Treble</div></div>
+        <div class="mm-brand">SONU ✦ AUDIO</div>
+      </div>
+      <div class="mm-grille" id="mmGrille"></div>
+      <div class="mm-player">
+        <div class="waveform" id="waveform"></div>
+        <div class="prog-bar" id="progBar" onclick="scrub(event)"><div class="prog-fill" id="progFill"></div></div>
+        <div class="prog-times"><span id="tEl">0:00</span><span id="tDur">0:30</span></div>
+        <div class="ctrl-row">
+          <button class="ctrl-btn" onclick="prevT()">⏮</button>
+          <button class="ctrl-btn play-btn" id="playBtn" onclick="togglePlay()">▶</button>
+          <button class="ctrl-btn" onclick="nextT()">⏭</button>
+        </div>
+        <div class="vol-row">
+          <span class="vol-icon">🔈</span>
+          <input type="range" class="vol" min="0" max="1" step="0.01" value="0.8" oninput="audio.volume=this.value">
+          <span class="vol-icon">🔊</span>
+        </div>
+        <div class="mm-error" id="mmError">▶ Tap play to start · needs internet</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<audio id="audio" preload="none"></audio>
+
+<script>
+// build grille
+(function(){var g=document.getElementById('mmGrille');for(var i=0;i<40;i++){var d=document.createElement('div');d.className='gd';g.appendChild(d);}})();
+// build waveform
+(function(){
+  var w=document.getElementById('waveform');
+  [18,28,36,44,50,44,36,28,40,50,42,32,26,38,48,50,45,36,28,42,50,44,34,26,40,50,42,30,22,36,48,50].forEach(function(h,i){
+    var b=document.createElement('div');b.className='bar';
+    b.style.height=h+'px';b.style.setProperty('--d',(0.45+i*0.05).toFixed(2)+'s');
+    b.style.animationDelay=(i*0.05).toFixed(2)+'s';
+    w.appendChild(b);
+  });
+})();
+
+// CONTENT DATA
+var CONTENT={
+  p1:{cat:'कविता · शेल्फ १',title:'एक शाम ऐसी ✨🌙',cls:'devanagari',
+    poem:`एक शाम ऐसी, जब तेरे करीब मैं बैठ पाऊँ,\nतुझे खुद से ही चुरा कर अपने सीने से लगा पाऊँ !! ✨\n\nयूं तो शौक नहीं मुझे तैरने का,\nलेकिन तुम्हारी आँखों में कुछ क्षण ऐसे डूब जाऊँ,\nकि उन आँखों में बह कर\nइस जहाँ से पार हो जाऊँ !! 🌊\n\nपूरी ज़िंदगी कहाँ चाहिए मुझे,\nबस एक सुकून भरी शाम तुम्हारे साथ गुज़ार पाऊँ;\nवो पहाड़, वो सितारे, वो चाँद और उन हवाओं के संग,\nमैं तुम्हारे साथ किसी और आसमाँ को छू जाऊँ !! ⏳\n\nहर बार तुमसे मिल कर,\nटूटे हुए मेरे दिल के हज़ार टुकड़े\nमैं फिर से सँभाल पाऊँ;\nक्योंकि दिल को आज रात फिर इंतज़ार है\nकब दोबारा टूटे, और मैं दोबारा\nखुद को ही खुद से समेट पाऊँ !! 🕊️\n\nतेरे जिस्म का लोभ कहाँ मुझे,\nबस तेरी रूह से नाता जोड़ पाऊँ;\nहृदय में अति 'हर्ष' के साथ,\nमैं ख़ुद को तुझमें विलीन करके\nअपना समस्त अस्तित्व ही भूल जाऊँ !!\nमैं, मैं न रहूँ…\nसिर्फ तुम बन जाऊँ,\nसिर्फ तुम बन जाऊँ !! 🪞🕊️\n\nइस जन्म में यदि तुम्हारा प्रेम पाना सम्भव नहीं,\nतो भी क्या मलाल रखूँ, प्रिये…\nतुम्हारे लिए मैं मुक्ति त्याग,\nइस भाव-सागर में बरसों तक भटक जाऊँ !! 🌊\n\nएक शाम ऐसी,\nजब मैं तुम्हारी आँखों में\nअपने लिए प्यार ढूँढ पाऊँ;\nउन आँखों में अपना अक्स देख\nमैं सुकून की नींद सो पाऊँ,\nऔर उस नींद के संग\nतुम्हें अपनी रूह भी सौंप जाऊँ !! 🔮✨\n\nकहते हैं—\nआख़िरी मोह होता है किसी का प्यार पाना;\nअब बस तुम्हें पाकर,\nउस मोह के संग\nइस नश्वर देह को भी मैं त्याग पाऊँ !! ⏳`,
+    desc:'A longing for one quiet evening — just to sit close, drown in your eyes, reach another sky together. Not a lifetime. Just one evening drenched in peace. She would trade even liberation for one more moment with you.',
+    lang:'Hindi',author:'— Sonu Desai',illus:'🌙'},
+
+  p2:{cat:'कविता · शेल्फ १',title:'कोई आया है…',cls:'devanagari',
+    poem:`थम सी गयी मेरी इस ज़िंदगी में,\nकोई मीठा सा तूफ़ान बन के आया है…\n\nनाकामयाब लग रही मेरी हर कोशिश को,\nकोई मुकम्मल करने आया है…\n\nना किसी से प्यार था और ना किसी से नफ़रत,\nपर आज,\nइस बेवजह सी ज़िंदगी में कोई\nजीने की वजह बन के आया है….\n\nहर तरफ बस बेचैनी और नाउम्मीद ही थी\nमेरी इस दुनिया में,\nपर आज,\nइस अँधेरों से भरी दुनिया में\nकोई रोशन सवेरा लेके आया है….\n\nअब तक न मुस्कुराने की कोई वजह मिली थी,\nपर आज,\nइस तन्हाई से भरी मेरी अकेली ज़िंदगी में\nकोई मीलों दूर से आया है…\n\nइस फीकी और बदसूरत ज़िंदगी में\nकोई चाशनी बन के आया है…..\nइस पतझड़ भरे मौसम में\nकोई वसंत की बहार लेके आया है…..\n\nहाँ, दिखता तो इंसान ही है वो…\nपर सच कहूँ तो यारों,\nइंसान के रूप में\nकोई फ़रिश्ता बन के आया है………`,
+    desc:'Someone arrived — quietly — and turned a hollow life into something whole. They became your reason, your light, your spring after endless winter. Not quite a lover — more like an angel in human form.',
+    lang:'Hindi',author:'— Sonu Desai',illus:'🕊️'},
+
+  p3:{cat:'કવિતા · શેલ્ફ ૧',title:'હું બની દીવાની તારી',cls:'devanagari',
+    poem:`મન મોહ્યો મારો તુજમાં,\nઓ મોહન મુરલીધારી,\nતુજ સ્મરણે હરદમ રાખ મુજને;\nહું બની દીવાની તારી.\n\nજો સંગ હોવે તું મારી મુજને,\nના ચિંતા સતાવે કોઈ,\nતુજ સંગ પૂરી ઝિંદગી વિતાવું;\nહું તો બની દીવાની તારી.`,
+    desc:'A devotional poem in Gujarati addressed to Krishna, the divine flute-player. Her heart has surrendered completely — in His remembrance alone is peace. She needs nothing more from this life than His companionship.',
+    lang:'Gujarati',author:'— Sonu Desai',illus:'🪷'},
+
+  p4:{cat:'कविता · शेल्फ १',title:'संभाल लेना……',cls:'devanagari',
+    poem:`आज तक संभालती तो आयी हूँ!!!!!!\nहर बात पर संभाला है मैंने अपने आप को,\nकभी लोगों की सोच से बचाया है मेरे सपनों को,\nतो कभी खुद से ही संभाला है मैंने मेरे इस मन को..........🍄\n\nकभी झूठे दोस्तों के स्वार्थ से,\nतो कभी रिश्तेदारों के तानों से बचाया है खुद को,\nकभी किसी की बहुत सारी गलतियाँ नज़रअंदाज़ करके,\nतो कभी छोटी छोटी खुशियों से मुस्कुराकर\nसंभाला है इस ज़िद्दी मन को..🌸\n\nकभी दिल से रो के और चेहरे से मुस्कुराकर\nसंभाला है मैंने अपने हर एक आँसू को...\n\nअब सच कहूँ तो इतना संभाला है अपने आप को,\nकि अब तो आँखों से आँसू भी सूख गए हैं,\nवो भी कहते हैं—\nबस अब नहीं बह सकता मैं तेरी इन खून भरी आँखों से….\n\nखैर…\n   विश्वास है मुझे अपने आप पर,\n   जैसे पहले भी संभाल लिया था,\n   आज भी संभाल ही लूँगी मैं अपने आप को………`,
+    desc:"She has held herself together — through false friends, taunt-throwing relatives, broken dreams, and waiting forever for someone who never returned. Her tears have dried up. Yet her faith in herself never breaks. She always holds on — and she will again.",
+    lang:'Hindi',author:'— Sonu Desai',illus:'🌸'},
+
+  p5:{cat:'कविता · शेल्फ १',title:'तेरे निर्माण का भी एक मकसद होगा',cls:'devanagari',
+    poem:`तेरे निर्माण का भी एक मकसद होगा;\nयह सोच के सब परेशानियों को परे रख तू;\nबस चाहे असफल हो या सफल;\nकुछ भी हमेशा के लिए नहीं है\nये याद रख तू;\n\nज़िंदगी के हर एक मोड़ पे\nदेने होंगे हज़ारों इम्तिहान तुझे;\nमत डर तू इन इम्तिहानों से;\nयही पहुँचाएगा तुझे तेरी मंज़िल पे;\n\nमंज़िल से खूबसूरत होता है सफ़र उसका;\nइन मन की भागदौड़ में कहीं\nसफ़र का मज़ा लेना ही भूल मत जाना;\nकोई नहीं रहेगा तेरे साथ\nतेरे आख़िरी वक्त तक;\nजो रहेगा वो सिर्फ तू और तू ही होगा….`,
+    desc:"You were created for a purpose. Success and failure are both temporary. Life will test you endlessly — but those tests are the path, not punishment. The journey is more beautiful than the destination. In the end, only you remain with yourself.",
+    lang:'Hindi',author:'— Sonu Desai',illus:'✨'},
+
+  p6:{cat:'કવિતા · શેલ્ફ ૧',title:'રૂપસુંદરી!!!!',cls:'devanagari',
+    poem:`મન લલચ્યો મારો ગોરી,\nદેખી રૂપ તારો…\nહર એક અંગ નિહારું હતો,\nબન્યો દીવાનો તારો…\n\nઆંખ્યા તારી હિરણ-વર્ણી,\nદેહ છે કામણગારો….\nહોઠો તારા ગુલાબ સારિખા,\nભાન ભૂલાવે મારો….\n\nચાંદ સારિખો મુખડો તારો,\nહિરણી સારખી ચાલ…\nકમર તારી લચકદાર ને,\nહોશ ઉડાવે મારો…\n\nઅપ્સરા ભાની આવી તે તો,\nમોહ્યો મુજને આખો….!!!`,
+    desc:"A breathless admiration of beauty, written in classical Gujarati spirit. Deer-like eyes, rose-petal lips, a moon-like face, a gait like a doe — the poet has abandoned everything just to behold her. Like an apsara descended from heaven.",
+    lang:'Gujarati',author:'— Sonu Desai',illus:'🌹'},
+
+  p7:{cat:'कविता · शेल्फ १',title:'अच्छा लगता है!!!!!',cls:'devanagari',
+    poem:`बस यूँही मेरे साथ रहा करो तुम,\nअच्छा लगता है!!!!!\n\nभले बात न हो पाए हर रोज़,\nबस आँखों से मुस्कुराया करो तुम,\nअच्छा लगता है!!!!!\n\nजानती हूँ नहीं है प्यार तुम्हें हमसे,\nफिर भी थोड़ा तो भाव दिया करो,\nअच्छा लगता है!!!!\n\nयूँ काम के अलावा भी कभी\nmessage कर लिया करो,\nअच्छा लगता है!!!!\n\nजानती हूँ तुम्हें नहीं कोई फ़िक्र हमारी,\nफिर भी कभी तो खैरियत पूछ लिया करो,\nअच्छा लगता है!!!!\n\nचाहे प्यार हो या न हो\nकभी तो हमसे जुड़ने की कोशिश किया करो,\nअच्छा लगता है!!!!`,
+    desc:'Not asking for love — just presence. Just a smile across the room. Just one message beyond work. Just "are you okay?" every once in a while. She knows he doesn\'t love her. She asks for nothing big — because even the smallest things from you feel like warmth.',
+    lang:'Hindi',author:'— Sonu Desai',illus:'🌼'},
+
+  p8:{cat:'कविता · शेल्फ १',title:'तुम्हारी याद!!!!',cls:'devanagari',
+    poem:`कितने मौसम बदल चुके हैं,\nपर तुम्हारी यादें अभी भी उतनी ही ताज़ा हैं,\nजैसे अभी भी तुम मेरे साथ बैठके\nमेरे बालों को ऐसे ही सहला रहे हो,\nजैसे कोई माँ अपने छोटे बच्चे को\nप्रेम करती है.\n\nकितने अरसों से नहीं मिले हम तुम,\nपर अभी भी न जाने क्यों वो इत्तर की खुश्बू,\nमुझे हरदम तुम्हारे मेरे आस-पास ही होने\nका अहसास कराती है.\n\nहाँ… शायद बदल चुके होंगे\nकई ख्याल तुम्हारे और मेरे,\nपर अभी भी न जाने क्यों लगता है जैसे,\nआज तक तुम्हारे अलावा\nमुझे कोई और समझ ही नहीं पाया है.\n\nबहुत लोगों से मुलाकात हुई\nतुम्हारे जाने के बाद,\nपर सच कहूँ तो अभी भी\nतुम्हारी तरह मेरी फ़िक्र करने वाला\nकोई नहीं मिला!!!`,
+    desc:'Seasons have changed, but the memory stays fresh as morning dew. A fragrance brings them back — sitting beside you, their fingers through your hair like a mother\'s love. Many have come since, but no one has understood her the same way.',
+    lang:'Hindi',author:'— Sonu Desai',illus:'🪷'},
+
+  d1:{cat:'Design Book · Shelf III',title:'The Design of Everyday Things',cls:'roman',
+    poem:`"The design of everyday things is in crisis. We are surrounded by objects of desire, noble visions of what might be."
+
+Good design is actually a lot harder to notice than poor design — in part because good designs fit our needs so well that they become invisible.
+
+The most important characteristics of good design are discoverability and understanding.
+
+If an error is possible, someone will make it. The designer must assume that all possible errors will occur and design so as to minimize the chance of the error in the first place, or its effects once it gets made.
+
+— Don Norman`,
+    desc:"The bible of UX design. Norman introduces affordances, signifiers, and feedback — the concepts that explain why some products feel intuitive and others don't. A must-read for anyone who designs anything people have to use.",
+    lang:'Design Classic',author:'— Don Norman',illus:'📖'},
+
+  d2:{cat:'Design Book · Shelf III',title:'UX for Beginners',cls:'roman',
+    poem:`"UX is about designing for human beings — their habits, their fears, their delights."
+
+Good UX design starts with a simple question: Why would someone use this?
+
+Users don't read manuals. They expect things to just work. Your job as a designer is to remove every possible point of friction between the user and their goal.
+
+Research first. Design second. Test always.
+
+The best interfaces are the ones that disappear.
+
+— Joel Marsh`,
+    desc:'100 short lessons that cut through the fluff. Joel Marsh delivers UX fundamentals in punchy, practical form — perfect for beginners who want to think like a designer without drowning in theory first.',
+    lang:'Design Guide',author:'— Joel Marsh',illus:'🎯'},
+
+  d3:{cat:'Design Book · Shelf III',title:'Designing Products People Love',cls:'roman',
+    poem:`"The products people love are not the result of luck. They come from a deep understanding of what makes people tick."
+
+Successful products balance three things: what users need, what business needs, and what technology can deliver.
+
+The gap between a product people tolerate and a product people love is almost always emotional.
+
+Start with empathy. Build with clarity. Ship with intention.
+
+— Scott Hurff`,
+    desc:"Hurff distils interviews with the best product designers in the world into a clear framework for building things people actually care about. The emotional layer of design is the difference between 'fine' and 'beloved.'",
+    lang:'Product Design',author:'— Scott Hurff',illus:'❤️'},
+
+  d4:{cat:'Design Book · Shelf III',title:"Don't Make Me Think",cls:'roman',
+    poem:`"It's not what a page looks like that matters. It's whether the average person can figure out what to do next without thinking about it."
+
+When I look at a page, it should be self-evident. Obvious. Self-explanatory.
+
+Every question mark adds cognitive friction. Every extra decision costs trust.
+
+The most effective design is the one that never makes the user feel lost.
+
+— Steve Krug`,
+    desc:"The classic that defined web usability. Krug's central argument: good design should be so clear, users never have to stop and think. Short, witty, and ruthlessly practical — every single page has earned its place.",
+    lang:'Usability Classic',author:'— Steve Krug',illus:'🧠'},
+
+  d5:{cat:'Design Book · Shelf III',title:'Change by Design',cls:'roman',
+    poem:`"Design thinking is a human-centred approach to innovation that draws from the designer's toolkit to integrate the needs of people, the possibilities of technology, and the requirements for business success."
+
+Innovation is not about saying yes to everything. It is about saying yes to the right constraints.
+
+Empathy without action is just observation. Design thinking turns observation into transformation.
+
+— Tim Brown, IDEO`,
+    desc:'Tim Brown of IDEO lays out how design thinking can transform organisations — not just products. Innovation starts with empathy, moves through prototyping, and ends with real-world impact. A book that changed how business thinks about creativity.',
+    lang:'Design Thinking',author:'— Tim Brown',illus:'💡'},
+
+  d6:{cat:'Design Book · Shelf III',title:'Evil by Design',cls:'roman',
+    poem:`"Persuasion is not inherently evil. But understanding how persuasion works helps you decide when it crosses the line."
+
+Dark patterns are design choices that benefit companies at the expense of users.
+
+The best defence against manipulation is knowing how it works.
+
+Understanding persuasive design makes you a more ethical designer — and a more aware user.
+
+— Chris Nodder`,
+    desc:'A fascinating look at how design is used to guide, nudge, and sometimes manipulate users. Nodder explores the psychology behind persuasive UX — and challenges designers to use these powers responsibly.',
+    lang:'UX Ethics',author:'— Chris Nodder',illus:'🎭'},
+
+  d7:{cat:'Design Book · Shelf III',title:'UX Research',cls:'roman',
+    poem:`"Research without action is just data. Action without research is just guessing."
+
+The best product decisions are made when you understand real users in real contexts solving real problems.
+
+Usability testing does not need to be expensive or complicated. Five users will reveal most major problems.
+
+Research is not a phase. It is a mindset that runs through every stage of design.
+
+— Brad Nunnally & David Farkas`,
+    desc:'A practical toolkit for conducting user research at any stage of the design process. From contextual inquiry to usability testing — Nunnally and Farkas show how research turns assumptions into insights and insights into better products.',
+    lang:'UX Research',author:'— Nunnally & Farkas',illus:'🔍'},
+
+  d8:{cat:'Design Book · Shelf III',title:'The Mom Test',cls:'roman',
+    poem:`"Talk to customers in a way that even your mom can't lie to you."
+
+Bad question: "Do you think this is a good idea?" (Everyone says yes.)
+
+Good question: "Tell me about the last time you had this problem."
+
+You're not looking for validation. You're looking for truth. Truth lives in past behaviour, not hypothetical opinions.
+
+Every business has a list of scary questions they're avoiding. Those are exactly the questions you need to ask.
+
+— Rob Fitzpatrick`,
+    desc:"The indispensable guide to customer conversations that actually tell you the truth. Fitzpatrick shows why most user interviews fail — and how to ask questions that reveal what people actually do, not just what they say they'd do.",
+    lang:'Product Research',author:'— Rob Fitzpatrick',illus:'👩'},
+};
+
+// MUSIC — direct Spotify preview MP3 URLs (fresh from API, 30-sec previews)
+var MUSIC=[
+  {song:'Shape of You',artist:'Ed Sheeran',
+   disc:'radial-gradient(circle at 32% 32%,#3a2050,#08050e)',center:'🎵',
+   mp3:'https://p.scdn.co/mp3-preview/7339548839a263fd721d01eb3364a848cad16fa7.mp3'},
+  {song:'Perfect',artist:'Ed Sheeran',
+   disc:'radial-gradient(circle at 32% 32%,#0e2038,#020810)',center:'🎶',
+   mp3:'https://p.scdn.co/mp3-preview/4e30857a3c7da3f8891483643e310bb233afadd2.mp3'},
+  {song:'Tum Hi Ho',artist:'Arijit Singh',
+   disc:'radial-gradient(circle at 32% 32%,#3a1010,#100404)',center:'❤️',
+   mp3:'https://p.scdn.co/mp3-preview/bce0f462dcd5e3b80dd21d28a0ed0dd25500cb59.mp3'},
+  {song:'Kesariya',artist:'Pritam, Arijit Singh',
+   disc:'radial-gradient(circle at 32% 32%,#4a2808,#180a02)',center:'🌸',
+   mp3:'https://p.scdn.co/mp3-preview/9ca5c9b20f18ba3c8d08887c08c0d22b3f8699b1.mp3'},
+  {song:'Raataan Lambiyan',artist:'Jubin Nautiyal, Asees Kaur',
+   disc:'radial-gradient(circle at 32% 32%,#0e2018,#020806)',center:'🌙',
+   mp3:'https://p.scdn.co/mp3-preview/03f216fbae700fc00520304502d348048cec19e8.mp3'},
+  {song:'Tera Ban Jaunga',artist:'Akhil Sachdeva, Tulsi Kumar',
+   disc:'radial-gradient(circle at 32% 32%,#1e1232,#06040e)',center:'🕊️',
+   mp3:'https://p.scdn.co/mp3-preview/03920de78dbb2f97844ba91d7c65af4d13fed097.mp3'},
+  {song:'Tum Hi Ho (Version 2)',artist:'Arijit Singh, Mithoon',
+   disc:'radial-gradient(circle at 32% 32%,#203010,#0a1404)',center:'🎹',
+   mp3:'https://p.scdn.co/mp3-preview/fe0a878264eabacd6c698b67c577497cc79e9589.mp3'},
+];
+
+var audio=document.getElementById('audio');
+var curIdx=0,playing=false,audioUnlocked=false,pendingPlay=false;
+
+// ── AUDIO UNLOCK ──
+// Browsers need ONE user gesture before any audio plays.
+// We silently unlock on the very first click/tap anywhere on the page.
+function unlockAudio(){
+  if(audioUnlocked) return;
+  audioUnlocked=true;
+  var silence=new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAA'
+    +'EAAQARAAAAAAAABgAIAGQAUECFAD4A');
+  silence.play().catch(function(){});
+  document.removeEventListener('click',unlockAudio);
+  document.removeEventListener('touchstart',unlockAudio);
+  // if a track is waiting, play it now
+  if(pendingPlay){ pendingPlay=false; _doPlay(); }
+}
+document.addEventListener('click',unlockAudio,{once:true});
+document.addEventListener('touchstart',unlockAudio,{once:true,passive:true});
+
+audio.addEventListener('ended',function(){setPlay(false);});
+audio.addEventListener('timeupdate',updateProg);
+audio.addEventListener('error',function(){
+  document.getElementById('mmError').style.display='block';
+  setPlay(false);
+});
+audio.addEventListener('canplay',function(){
+  document.getElementById('mmError').style.display='none';
+});
+
+function openPoem(id){
+  var b=CONTENT[id]; if(!b)return;
+  document.getElementById('pgCat').textContent=b.cat;
+  document.getElementById('pgTitle').textContent=b.title;
+  var pe=document.getElementById('pgPoem');
+  pe.textContent=b.poem;
+  pe.className='pg-poem '+(b.cls||'roman');
+  document.getElementById('descTitle').textContent=b.title;
+  document.getElementById('descLang').textContent=b.lang;
+  document.getElementById('descText').textContent=b.desc;
+  document.getElementById('descAuthor').textContent=b.author;
+  document.getElementById('pgIllus').textContent=b.illus;
+  document.getElementById('bookModal').classList.add('show');
+}
+
+function openMusic(idx){
+  // This IS a direct user gesture (book click) — safe to call play() here
+  curIdx=idx;
+  var m=MUSIC[idx];
+  audio.pause();
+  setPlay(false);
+  var disc=document.getElementById('mmDisc');
+  disc.style.background=m.disc;
+  document.getElementById('mmCenter').textContent=m.center;
+  document.getElementById('mmSong').textContent=m.song;
+  document.getElementById('mmArtist').textContent=m.artist;
+  document.getElementById('mmError').style.display='none';
+  document.getElementById('progFill').style.width='0%';
+  document.getElementById('tEl').textContent='0:00';
+  document.getElementById('tDur').textContent='0:30';
+  audio.src=m.mp3;
+  audio.volume=0.8;
+  document.getElementById('musicModal').classList.add('show');
+  // Play immediately — this click IS the user gesture
+  _doPlay();
+}
+
+function _doPlay(){
+  var p=audio.play();
+  if(p!==undefined){
+    p.then(function(){ setPlay(true); }).catch(function(e){
+      console.warn('play() blocked:',e.message);
+      // Show a friendly prompt instead of error
+      document.getElementById('mmError').style.display='block';
+      document.getElementById('mmError').textContent='▶ Tap the play button to start';
+      setPlay(false);
+    });
+  } else {
+    setPlay(true);
+  }
+}
+
+function setPlay(s){
+  playing=s;
+  document.getElementById('playBtn').textContent=s?'⏸':'▶';
+  document.getElementById('mmDisc').classList.toggle('spin',s);
+  document.getElementById('waveform').classList.toggle('playing',s);
+}
+
+function stopPlayer(){
+  audio.pause();
+  audio.currentTime=0;
+  setPlay(false);
+}
+
+// Play button — this is always a direct user gesture, always safe
+function togglePlay(){
+  if(playing){
+    audio.pause();
+    setPlay(false);
+  } else {
+    // If src not loaded yet, load it
+    if(!audio.src || audio.src===''){
+      var m=MUSIC[curIdx];
+      audio.src=m.mp3;
+      audio.volume=0.8;
+    }
+    document.getElementById('mmError').style.display='none';
+    _doPlay();
+  }
+}
+
+function updateProg(){
+  if(!audio.duration)return;
+  var p=(audio.currentTime/audio.duration)*100;
+  document.getElementById('progFill').style.width=p+'%';
+  document.getElementById('tEl').textContent=fmt(audio.currentTime);
+  document.getElementById('tDur').textContent=fmt(audio.duration);
+}
+function scrub(e){
+  if(!audio.duration)return;
+  var r=e.currentTarget.getBoundingClientRect();
+  audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration;
+}
+function fmt(s){s=Math.floor(s||0);return Math.floor(s/60)+':'+(s%60<10?'0':'')+s%60;}
+function prevT(){openMusic((curIdx-1+MUSIC.length)%MUSIC.length);}
+function nextT(){openMusic((curIdx+1)%MUSIC.length);}
+
+function closeAll(){
+  stopPlayer();
+  document.getElementById('bookModal').classList.remove('show');
+  document.getElementById('musicModal').classList.remove('show');
+}
+</script>
+</body>
+</html>
